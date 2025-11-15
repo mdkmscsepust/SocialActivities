@@ -46,9 +46,9 @@ namespace Backend.API.Repositories.PostRepository
 
         public async Task<IEnumerable<Post>> GetAllAsync()
         {
-             try
+            try
             {
-                return await _context.Set<Post>().ToListAsync();
+                return await _context.Set<Post>().Include(x => x.Category).ToListAsync();
             }
             catch (Exception ex)
             {

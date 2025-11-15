@@ -1,0 +1,111 @@
+/* Backdrop */
+.popup-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+  z-index: 1000;
+}
+
+/* Popup box */
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  width: 90%;
+  max-width: 400px;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Form inputs */
+.popup input,
+.popup textarea {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.popup input:focus,
+.popup textarea:focus {
+  border-color: #4caf50; /* green focus */
+}
+
+/* Textarea */
+.popup textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Buttons container */
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+/* Buttons style */
+.buttons button {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.buttons button[type="submit"] {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+.buttons button[type="submit"]:disabled {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}
+
+.buttons button[type="button"] {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+/* Hover effects */
+.buttons button:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+select {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+select:focus {
+  border-color: #4caf50;
+}
+
+
+/* Responsive: smaller screens */
+@media (max-width: 500px) {
+  .popup {
+    padding: 1.5rem;
+  }
+}

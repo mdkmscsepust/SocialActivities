@@ -23,7 +23,7 @@ namespace Backend.API.Helper
             TypeAdapterConfig<Comment, CommentOutDto>.NewConfig();
 
             TypeAdapterConfig<PostInDto, Post>.NewConfig();
-            TypeAdapterConfig<Post, PostOutDto>.NewConfig();
+            TypeAdapterConfig<Post, PostOutDto>.NewConfig().Map(dest => dest.CategoryName, src => src.Category.Name);
 
             TypeAdapterConfig.GlobalSettings.Scan(typeof(MapsterConfig).Assembly);
         }

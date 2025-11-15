@@ -1,0 +1,23 @@
+<div class="popup-backdrop" (click)="onClose()"></div>
+<div class="popup">
+  <h2>New Donation</h2>
+  <form [formGroup]="donationForm" (ngSubmit)="onSubmit()">
+
+    <input type="text" placeholder="Tag" formControlName="tag" />
+    <input type="text" placeholder="Title" formControlName="title" />
+    <textarea placeholder="Description" formControlName="description"></textarea>
+    <input type="text" placeholder="Location" formControlName="location" />
+    <select formControlName="categoryId">
+        <option value="" disabled>Select Category</option>
+        <option *ngFor="let category of categories" [value]="category.id">
+        {{ category.name }}
+        </option>
+    </select>
+
+    <div class="buttons">
+      <button type="submit" [disabled]="donationForm.invalid">Submit</button>
+      <button type="button" (click)="onClose()">Cancel</button>
+    </div>
+
+  </form>
+</div>

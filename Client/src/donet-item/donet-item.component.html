@@ -1,0 +1,198 @@
+<section class="hero-section">
+        <h1>Make a Difference Today</h1>
+        <p>Donate your old clothes and books to help those in need. Every item you share can change someone's life.</p>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="icon">📦</span>
+                <h2>1,247</h2>
+                <p>Items Donated</p>
+            </div>
+            <div class="stat-card">
+                <span class="icon">😊</span>
+                <h2>892</h2>
+                <p>Happy Recipients</p>
+            </div>
+            <div class="stat-card">
+                <span class="icon">🌍</span>
+                <h2>247</h2>
+                <p>Tons Saved</p>
+            </div>
+        </div>
+
+        <div class="search-area">
+            <input type="text" placeholder="🔍 Search donations..." />
+            <select>
+                <option>All</option>
+                <option>Clothes</option>
+                <option>Books</option>
+            </select>
+            <button class="new-donation-btn" (click)="openPopup()">+ New Donation</button>
+
+            <app-donet-popup
+            *ngIf="showPopup"
+            (close)="closePopup()"
+            (submitItem)="handleSubmit($event)">
+            </app-donet-popup>
+        </div>
+
+    </section>
+
+    <div class="main-content">
+        <div class="listing-grid">
+  <div class="listing-card" *ngFor="let item of donetItems">
+
+    <div class="category-box">{{ item.tag }}</div>
+
+    <div class="listing-header">
+      <span class="listing-tag">{{ item.categoryName }}</span>
+      <small>{{ item.createdAt | timeAgo }}</small>
+    </div>
+
+    <div class="listing-body">
+      <h3>{{ item.title }}</h3>
+      <p>{{ item.description }}</p>
+
+      <div class="listing-details">
+        <span class="icon-small">📍</span>
+        <span class="location">{{ item.location }}</span>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="listing-footer">
+      <div class="stats">
+        <!-- <span>❤️ {{ item.likes }}</span>
+        <span>💬 {{ item.comments }}</span> -->
+        <span>❤️ 12</span>
+        <span>💬 3</span>
+      </div>
+
+      <a href="#" class="contact-btn">
+        Contact
+      </a>
+    </div>
+
+  </div>
+</div>
+<!-- 
+        <div class="listing-grid">
+            <div class="listing-card">
+              <div class="category-box">Jackets</div>
+                <div class="listing-header">
+                    <span class="listing-tag tag-clothes">Clothes</span>
+                    <small>2 hours ago</small>
+                </div>
+                <div class="listing-body">
+                    <h3>Winter Jackets</h3>
+                    <p>Gently used winter jackets in good condition. Size M and L available.</p>
+                    <div class="listing-details">
+                        <span class="icon-small">📍</span>
+                        <span class="location">Downtown Community Center</span>
+                    </div>
+                </div>
+                <div class="listing-footer">
+                    <div class="stats">
+                        <span>❤️ 12</span>
+                        <span>💬 3</span>
+                    </div>
+                    <a href="#" class="contact-btn">Contact</a>
+                </div>
+            </div>
+        </div> -->
+        <!-- <div class="listing-grid">
+
+            <div class="listing-card">
+              <div class="category-box">Jackets</div>
+                <div class="listing-header">
+                    <span class="listing-tag tag-clothes">Clothes</span>
+                    <small>2 hours ago</small>
+                </div>
+                <div class="listing-body">
+                    <h3>Winter Jackets</h3>
+                    <p>Gently used winter jackets in good condition. Size M and L available.</p>
+                    <div class="listing-details">
+                        <span class="icon-small">📍</span>
+                        <span class="location">Downtown Community Center</span>
+                    </div>
+                </div>
+                <div class="listing-footer">
+                    <div class="stats">
+                        <span>❤️ 12</span>
+                        <span>💬 3</span>
+                    </div>
+                    <a href="#" class="contact-btn">Contact</a>
+                </div>
+            </div>
+
+            <div class="listing-card">
+              <div class="category-box">Books</div>
+                <div class="listing-header">
+                    <span class="listing-tag tag-books">Books</span>
+                    <small>4 hours ago</small>
+                </div>
+                <div class="listing-body">
+                    <h3>Academic Textbooks</h3>
+                    <p>Collection of college textbooks: Biology, Chemistry, Physics</p>
+                    <div class="listing-details">
+                        <span class="icon-small">📍</span>
+                        <span class="location">University Library</span>
+                    </div>
+                </div>
+                <div class="listing-footer">
+                    <div class="stats">
+                        <span>❤️ 8</span>
+                        <span>💬 1</span>
+                    </div>
+                    <a href="#" class="contact-btn">Contact</a>
+                </div>
+            </div>
+
+            <div class="listing-card">
+                <div class="category-box">Kids Wear</div>
+                <div class="listing-header red">
+                    <span class="listing-tag">Clothes</span>
+                    <small>6 hours ago</small>
+                </div>
+                <div class="listing-body">
+                    <h3>Children's Clothes</h3>
+                    <p>Size 4-6 years old clothes, mostly in excellent condition</p>
+                    <div class="listing-details">
+                        <span class="icon-small">📍</span>
+                        <span class="location">Children's Hospital</span>
+                    </div>
+                </div>
+                <div class="listing-footer">
+                    <div class="stats">
+                        <span>❤️ 15</span>
+                        <span>💬 5</span>
+                    </div>
+                    <a href="#" class="contact-btn">Contact</a>
+                </div>
+            </div>
+
+            <div class="listing-card">
+               <div class="category-box">Cookbooks</div>
+                <div class="listing-header orange">
+                    <span class="listing-tag">Books</span>
+                    <small>1 day ago</small>
+                </div>
+                <div class="listing-body">
+                    <h3>Cooking Recipes</h3>
+                    <p>Collection of international cuisine recipe books</p>
+                    <div class="listing-details">
+                        <span class="icon-small">📍</span>
+                        <span class="location">Community Kitchen</span>
+                    </div>
+                </div>
+                <div class="listing-footer">
+                    <div class="stats">
+                        <span>❤️ 6</span>
+                        <span>💬 2</span>
+                    </div>
+                    <a href="#" class="contact-btn">Contact</a>
+                </div>
+            </div>
+
+        </div> -->
+    </div>
