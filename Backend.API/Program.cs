@@ -1,3 +1,4 @@
+using System.Text;
 using Backend.API.Database;
 using Backend.API.Helper;
 using Backend.API.Repositories.CategoryRepository;
@@ -12,7 +13,9 @@ using Backend.API.Services.LikeService;
 using Backend.API.Services.PostService;
 using Mapster;
 using MapsterMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
@@ -35,6 +38,23 @@ var config = TypeAdapterConfig.GlobalSettings;
 builder.Services.AddSingleton(config);
 MapsterConfig.RegisterMappings();
 builder.Services.AddMapster();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"])
+            ),
+            ClockSkew = TimeSpan.Zero
+        };
+    });
 builder.Services.AddScoped<IMapper, ServiceMapper>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
@@ -48,14 +68,12 @@ builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
 var app = builder.Build();
+
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
 app.UseCors("AllowAll");
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
+app.UseAuthorization();
 app.MapControllers();
 app.Run();

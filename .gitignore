@@ -6,6 +6,8 @@ Backend.Data/obj/
 Backend.Data/bin/
 Backend.Tests/obj/
 Backend.Tests/bin/
+UserManagement.API/obj/
+UserManagement.API/bin/
 .vs/
 *.user
 *.suo

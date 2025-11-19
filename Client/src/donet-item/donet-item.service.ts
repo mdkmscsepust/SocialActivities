@@ -11,10 +11,14 @@ export class DonetItemService {
 
   constructor(private httpClient: HttpClient) { }
   getDonetItems() : Observable<DonetItem[]> {
-    return this.httpClient.get<DonetItem[]>('http://localhost:5088/api/post');
+    return this.httpClient.get<DonetItem[]>('http://localhost:5001/api/post');
   }
 
   createDonetItem(item: DonetItemCreate) : Observable<any> {
-    return this.httpClient.post<any>('http://localhost:5088/api/post', item);
+    return this.httpClient.post<any>('http://localhost:5001/api/post', item);
+  }
+
+  toggleLiked(postid: number) : Observable<{'isLiked': boolean, 'likedCount': number}> {
+    return this.httpClient.post<{'isLiked': boolean, 'likedCount': number}>(`http://localhost:5001/api/Like/toggle_liked/${postid}`, {});
   }
 }

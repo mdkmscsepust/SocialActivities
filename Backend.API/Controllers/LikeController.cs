@@ -4,12 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Backend.API.Models.Requests;
 using Backend.API.Services.LikeService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class LikeController : ControllerBase
     {
         private readonly ILikeService _likeService;
@@ -50,12 +52,19 @@ namespace Backend.API.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        [HttpDelete("{postid}")]
+        public async Task<IActionResult> Delete(int postid)
         {
-            var result = await _likeService.DeleteAsync(id);
+            var result = await _likeService.DeleteAsync(postid);
             if (!result) return NotFound();
             return Ok();
+        }
+
+        [HttpPost("toggle_liked/{postid}")]
+        public async Task<IActionResult> ToggleLiked(int postid)
+        {
+            var result = await _likeService.ToggleLiked(postid);
+            return Ok(result);
         }
     }
 }

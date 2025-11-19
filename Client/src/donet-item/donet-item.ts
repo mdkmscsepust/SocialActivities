@@ -7,4 +7,6 @@ export interface DonetItem {
     categoryId: number;
     categoryName: string;
     createdAt: Date;
+    isLiked: boolean;
+    likedCount: number;
 }

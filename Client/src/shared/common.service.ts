@@ -9,6 +9,6 @@ export class CommonService {
 
   constructor(private httpClient: HttpClient) { }
   getCategories() {
-    return this.httpClient.get<DropdownOption[]>('http://localhost:5088/api/category/dropdown');
+    return this.httpClient.get<DropdownOption[]>('http://localhost:5001/api/category/dropdown');
   }
 }

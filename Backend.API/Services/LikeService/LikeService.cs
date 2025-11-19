@@ -41,5 +41,30 @@ namespace Backend.API.Services.LikeService
             checkExists.UserId = request.UserId;
             return await _likeRepository.UpdateAsync(checkExists);            
         }
+
+        public async Task<ToggleLikedOutDto> ToggleLiked(int postId)
+        {
+            var isLikeExist = await _likeRepository.GetAsync(x => x.PostId == postId && x.UserId == 1);
+            var toggleLikedOutDto = new ToggleLikedOutDto();
+            if( isLikeExist is not null)
+            {
+                await _likeRepository.DeleteAsync(isLikeExist.Id);
+                toggleLikedOutDto.IsLiked = false;
+
+            } else
+            {
+                await _likeRepository.CreateAsync(new Like
+                {
+                    PostId = postId,
+                    UserId = 1
+                });
+
+                toggleLikedOutDto.IsLiked = true;
+            }
+
+            toggleLikedOutDto.LikedCount = await _likeRepository.CountAsync(x => x.PostId == postId);
+            
+            return toggleLikedOutDto;
+        }
     }
 }

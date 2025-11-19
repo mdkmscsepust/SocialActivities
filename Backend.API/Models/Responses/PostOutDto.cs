@@ -8,6 +8,10 @@ namespace Backend.API.Models.Responses
         public string Location { get; set; }
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
+        public bool IsLiked { get; set; }
+        public int LikeCount { get; set; }
+        public int CommentCount { get; set; }
+        public List<string>? Comments { get; set; }
 
     }
 }

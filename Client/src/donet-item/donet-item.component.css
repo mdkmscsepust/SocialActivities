@@ -205,3 +205,12 @@
 .icon-small {
     margin-right: 4px;
 }
+
+.liked {
+  color: red;
+  cursor: pointer;
+}
+.not-liked {
+  color: #aaa;
+  cursor: pointer;
+}

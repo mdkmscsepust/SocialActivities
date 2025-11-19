@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Backend.API.Database;
 using Backend.API.Models.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -75,6 +76,41 @@ namespace Backend.API.Repositories.LikeRepository
                 _context.Update(Like);
                 await _context.SaveChangesAsync();
                 return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<bool> AnyAsync(Expression<Func<Like, bool>> predicate)
+        {
+            try
+            {
+                return await _context.Likes.AnyAsync(predicate);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public async Task<Like?> GetAsync(Expression<Func<Like, bool>> predicate)
+        {
+            try
+            {
+                return await _context.Likes.FirstOrDefaultAsync(predicate);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<long> CountAsync(Expression<Func<Like, bool>> predicate)
+        {
+            try
+            {
+                return await _context.Likes.CountAsync(predicate);
             }
             catch (Exception ex)
             {

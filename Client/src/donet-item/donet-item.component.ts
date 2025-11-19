@@ -17,6 +17,8 @@ import { DonetPopupComponent } from './donet-popup/donet-popup.component';
 export class DonetItemComponent implements OnInit {
   showPopup: boolean = false;
   donetItems: DonetItem[] = [];
+  isLiked: boolean = false;
+  likeCount: number = 0;
   public constructor(private donetitemService: DonetItemService) { }
   ngOnInit() {
     this.donetitemService.getDonetItems().subscribe(items => {
@@ -36,6 +38,16 @@ export class DonetItemComponent implements OnInit {
   handleSubmit(item: DonetItemCreate) {
     this.donetitemService.createDonetItem(item).subscribe(res => {
       console.log('Created:', res);
+    });
+  }
+
+  toggleLike(item: any) {
+    console.log('Toggling like for item with id:', item.id);
+    this.donetitemService.toggleLiked(item.id).subscribe(response => {
+      var dotnetItem = this.donetItems.find(d => d.id === item.id);
+      if(!dotnetItem) return;
+      dotnetItem.isLiked = response.isLiked;
+      dotnetItem.likedCount = response.likedCount;
     });
   }
 

@@ -48,7 +48,7 @@ namespace Backend.API.Repositories.PostRepository
         {
             try
             {
-                return await _context.Set<Post>().Include(x => x.Category).ToListAsync();
+                return await _context.Set<Post>().Include(x => x.Category).Include(x => x.Likes).ToListAsync();
             }
             catch (Exception ex)
             {

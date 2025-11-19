@@ -64,8 +64,15 @@
       <div class="stats">
         <!-- <span>❤️ {{ item.likes }}</span>
         <span>💬 {{ item.comments }}</span> -->
-        <span>❤️ 12</span>
-        <span>💬 3</span>
+        <span
+        (click)="toggleLike(item)"
+        [ngClass]="item.isLiked ? 'liked' : 'not-liked'">
+
+        {{ item.isLiked ? '❤️' : '🤍' }}
+        {{ item.likeCount }}
+        </span>
+
+
       </div>
 
       <a href="#" class="contact-btn">

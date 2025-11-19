@@ -14,5 +14,6 @@ namespace Backend.API.Services.LikeService
         Task<bool> CreateAsync(LikeInDto request);
         Task<bool> UpdateAsync(int id, LikeInDto request);
         Task<bool> DeleteAsync(int id);
+        Task<ToggleLikedOutDto> ToggleLiked(int postId);
     }
 }
