@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Backend.API.Models.Entities;
 using Backend.API.Models.Requests;
 using Backend.API.Models.Responses;
@@ -9,10 +10,13 @@ namespace Backend.API.Services.LikeService
     public class LikeService : ILikeService
     {
         private readonly ILikeRepository _likeRepository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public LikeService(ILikeRepository likeRepository)
+        public LikeService(ILikeRepository likeRepository,
+         IHttpContextAccessor httpContextAccessor)
         {
             _likeRepository = likeRepository;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<bool> CreateAsync(LikeInDto request) =>
@@ -44,7 +48,9 @@ namespace Backend.API.Services.LikeService
 
         public async Task<ToggleLikedOutDto> ToggleLiked(int postId)
         {
-            var isLikeExist = await _likeRepository.GetAsync(x => x.PostId == postId && x.UserId == 1);
+            var userId = Convert.ToInt32(_httpContextAccessor.HttpContext?.User.FindFirstValue("id"));
+
+            var isLikeExist = await _likeRepository.GetAsync(x => x.PostId == postId && x.UserId == userId);
             var toggleLikedOutDto = new ToggleLikedOutDto();
             if( isLikeExist is not null)
             {
@@ -56,7 +62,7 @@ namespace Backend.API.Services.LikeService
                 await _likeRepository.CreateAsync(new Like
                 {
                     PostId = postId,
-                    UserId = 1
+                    UserId = userId
                 });
 
                 toggleLikedOutDto.IsLiked = true;

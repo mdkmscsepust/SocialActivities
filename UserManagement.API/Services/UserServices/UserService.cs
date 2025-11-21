@@ -55,7 +55,7 @@ public class UserService(UserManager<User> userManager, IConfiguration config) :
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:SecretKey"]));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
         var claims = new List<Claim> {
-            new Claim("id", user.Id),
+            new Claim("id", user.Id.ToString()),
             new Claim(ClaimTypes.Name, user.UserName)
         };
 
@@ -63,7 +63,7 @@ public class UserService(UserManager<User> userManager, IConfiguration config) :
             config["Jwt:Issuer"],
             config["Jwt:Audience"],
             claims: claims,
-            expires: DateTime.UtcNow.AddMinutes(config.GetValue<int>("Jwt:ExpiredTime")),
+            expires: DateTime.UtcNow.AddDays(config.GetValue<int>("Jwt:ExpiredTime")),
             signingCredentials: credentials
         );
 
