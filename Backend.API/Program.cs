@@ -9,6 +9,8 @@ using Backend.API.Repositories.PostRepository;
 using Backend.API.Services;
 using Backend.API.Services.CommentService;
 using Backend.API.Services.ContactService;
+using Backend.API.Services.DonationItemRepository;
+using Backend.API.Services.DonationItemService;
 using Backend.API.Services.LikeService;
 using Backend.API.Services.PostService;
 using Mapster;
@@ -67,6 +69,8 @@ builder.Services.AddScoped<ILikeService, LikeService>();
 builder.Services.AddScoped<ILikeRepository, LikeRepository>();
 builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<IDonationItemService, DonationItemService>();
+builder.Services.AddScoped<IDonationItemRepository, DonationItemRepository>();
 
 var app = builder.Build();
 

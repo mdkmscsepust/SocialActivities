@@ -1,4 +1,3 @@
-using Backend.API.Models;
 using Backend.API.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,5 +14,6 @@ namespace Backend.API.Database
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Like> Likes { get; set; }
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<DonationItem> DonationItems { get; set; }
     }
 }
